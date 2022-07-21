@@ -26,8 +26,8 @@ on:
         required: false
         default: ''
       build_from_cache:
-        description: 'Whether to build images from cache or not. Defaults to true, because not doing so significantly increases build time'
-        required: false
+        description: 'Whether to build images from cache or not. Default: true, set to false only if required because that will cause significantly increases build time'
+        required: true
         default: 'true'
 jobs:
   matrix_prep:
@@ -65,7 +65,7 @@ jobs:
       run: |
         export version_suffix=$(echo "$GITHUB_REF_NAME" | grep -E "^[0-9]+\.[0-9]+\.x$" | tr -d '.');
         export unstable_tag=$(if [ -z "$version_suffix" ]; then echo "unstable-cache"; else echo "unstable-cache-$version_suffix";fi);
-        export cache_from_tag=$(if [ "${{ github.event.inputs.build_from_cache }}" != "false" ]; then echo "$unstable_tag" ; else echo "";fi);
+        export cache_from_tag=$(if [ "${{ github.event.inputs.build_from_cache }}" = "true" ]; then echo "$unstable_tag" ; else echo "";fi);
         export no_cache=$(if [ "${{ github.event.inputs.build_from_cache }}" = "false" ]; then echo "${{ github.event.inputs.build_from_cache }}" ; else echo "";fi);
         echo "::set-output name=tag::$(echo $unstable_tag)"
         echo "::set-output name=cache_from_tag::$(echo $cache_from_tag)"
