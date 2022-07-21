@@ -143,4 +143,4 @@ jobs:
         MLRUN_VERSION=${{ steps.docker_cache.outputs.tag }} \
         MLRUN_DOCKER_CACHE_FROM_TAG=${{ steps.docker_cache.outputs.cache_from_tag }} \
         MLRUN_PUSH_DOCKER_CACHE_IMAGE=true \
-        make ${{ matrix.image-name }}
+        make build-${{ matrix.image-name }}
