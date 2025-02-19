@@ -1435,3 +1435,12 @@ def test_join_urls(base_url, path, expected_result):
 )
 def test_datetime_from_iso(input_time, expected_output):
     assert mlrun.utils.helpers.datetime_from_iso(input_time) == expected_output
+
+
+@pytest.mark.parametrize(
+    "user_code",
+    [b"print('Hello World')", "print('Hello World')"],
+)
+def test_encode_user_code(user_code):
+    encoded_user_code = mlrun.utils.encode_user_code(user_code)
+    assert encoded_user_code == "cHJpbnQoJ0hlbGxvIFdvcmxkJyk="
