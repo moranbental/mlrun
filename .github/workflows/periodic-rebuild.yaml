@@ -15,6 +15,9 @@
 
 name: Scheduled Re-Build Images
 
+permissions:
+  contents: read
+
 on:
   schedule:
   # every night at 2am
